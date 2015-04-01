@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="cisw/src/main/java"/>
+	<classpathentry kind="src" path="cis-common/src/main/java"/>
+	<classpathentry kind="src" path="ciscd/src/main/java"/>
+	<classpathentry kind="src" path="cisw-gwt/src"/>
+	<classpathentry kind="src" path="qparser/src"/>
+	<classpathentry kind="src" path="cissd/src/main/java"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="cisw/lib/jcl-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/log4j-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/logback-classic-1.0.6.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/logback-core-1.0.6.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/zookeeper-3.4.3.jar"/>
+	<classpathentry kind="lib" path="ciscd/lib/tools.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/activation.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/mail.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/asynchbase-1.4.0.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/netty-3.5.9.Final.jar"/>
+	<classpathentry kind="lib" path="cisw/lib/suasync-1.3.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

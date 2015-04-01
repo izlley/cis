@@ -1,0 +1,294 @@
+<?xml version="1.0" ?>
+<project name="cis" default="compile" basedir=".">
+
+    <!-- Load all the default properties, and any the user wants -->
+    <property name="name" value="cis" />
+    <property name="version" value="0.0.1" />
+
+    <property name="javac.debug" value="on" />
+    <property name="javac.optimize" value="on" />
+    <property name="javac.deprecation" value="off" />
+    <property name="javac.version" value="1.6" />
+    <property name="javac.args" value="" />
+    <property name="javac.args.warnings" value="-Xlint:unchecked" />
+
+    <property name="cis-common.final.name" value="cis-common-${version}" />
+    <property name="cissd.final.name" value="cissd-${version}" />
+    <property name="cisw.final.name" value="cisw-${version}" />
+    <property name="jmxprobe.final.name" value="jmxprobe-${version}" />
+    <property name="mrprobe.final.name" value="mrprobe-${version}" />
+
+    <property name="cis-common.src.dir" value="${basedir}/cis-common/src/main" />
+    <property name="cis-common.lib.dir" value="${basedir}/cis-common/lib" />
+    <property name="cis-common.build.dir" value="${basedir}/cis-common/build" />
+    <property name="cis-common.build.classes" value="${cis-common.build.dir}/classes" />
+
+    <property name="cissd.src.dir" value="${basedir}/cissd/src/main" />
+    <property name="cissd.lib.dir" value="${basedir}/cissd/lib" />
+    <property name="cissd.build.dir" value="${basedir}/cissd/build" />
+    <property name="cissd.build.classes" value="${cissd.build.dir}/classes" />
+    <property name="cissd.conf.dir" value="${cissd.src.dir}/conf" />
+    <property name="cissd.bin.dir" value="${cissd.src.dir}/bin" />
+
+    <property name="cisw.src.dir" value="${basedir}/cisw/src/main" />
+    <property name="cisw.lib.dir" value="${basedir}/cisw/lib" />
+    <property name="cisw.build.dir" value="${basedir}/cisw/build" />
+    <property name="cisw.build.classes" value="${cisw.build.dir}/classes" />
+    <property name="cisw.conf.dir" value="${cisw.src.dir}/conf" />
+    <property name="cisw.bin.dir" value="${cisw.src.dir}/bin" />
+	<property name="cisw.webroot.dir" value="${cisw.src.dir}/../webapps" />
+
+    <property name="ciscd.src.dir" value="${basedir}/ciscd/src/main" />
+    <property name="ciscd.lib.dir" value="${basedir}/ciscd/lib" />
+    <property name="ciscd.build.dir" value="${basedir}/ciscd/build" />
+    <property name="ciscd.build.classes" value="${ciscd.build.dir}/classes" />
+    <property name="ciscd.collector.dir" value="${ciscd.src.dir}/python/collector" />
+    <property name="ciscd.cmanager.dir" value="${ciscd.src.dir}/python/cmanager" />
+    <property name="ciscd.bin.dir" value="${ciscd.src.dir}/bin" />
+    <property environment="env" />
+    <property name="hadoop_home" value="${env.HADOOP_HOME}" />
+
+    <property name="cis.dist.dir" value="${basedir}/dist" />
+
+    <property name="ciscd.dist.dir" value="${cis.dist.dir}/ciscd" />
+    <property name="ciscd.dist.lib.dir" value="${ciscd.dist.dir}/lib" />
+    <property name="ciscd.dist.collector.dir" value="${ciscd.dist.dir}/collector" />
+    <property name="ciscd.dist.cmanager.dir" value="${ciscd.dist.dir}/cmanager" />
+    <property name="ciscd.dist.bin.dir" value="${ciscd.dist.dir}/bin" />
+
+    <property name="cissd.dist.dir" value="${cis.dist.dir}/cissd" />
+    <property name="cissd.dist.lib.dir" value="${cissd.dist.dir}/lib" />
+    <property name="cissd.dist.conf.dir" value="${cissd.dist.dir}/conf" />
+    <property name="cissd.dist.bin.dir" value="${cissd.dist.dir}/bin" />
+
+    <property name="cisw.dist.dir" value="${cis.dist.dir}/cisw" />
+    <property name="cisw.dist.lib.dir" value="${cisw.dist.dir}/lib" />
+    <property name="cisw.dist.conf.dir" value="${cisw.dist.dir}/conf" />
+    <property name="cisw.dist.bin.dir" value="${cisw.dist.dir}/bin" />
+    <property name="cisw.dist.webroot.dir" value="${cisw.dist.dir}/webroot" />
+    <property name="cisw.dist.diskcache.dir" value="${cisw.dist.dir}/diskcache" />
+
+    <!-- classpath -->
+    <path id="cis-common.lib.classpath">
+        <fileset dir="${cis-common.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <path id="cissd.lib.classpath">
+        <fileset dir="${cissd.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <path id="cisw.lib.classpath">
+        <fileset dir="${cisw.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <path id="ciscd.lib.classpath">
+        <fileset dir="${ciscd.lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${hadoop_home}">
+            <include name="**/*.jar" />
+        </fileset>
+        <fileset dir="${hadoop_home}/lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <path id="cis-common.classpath">
+        <pathelement location="${cis-common.build.classes}" />
+        <path refid="cis-common.lib.classpath" />
+    </path>
+    <path id="cissd.classpath">
+        <pathelement location="${cissd.build.classes}" />
+        <path refid="cissd.lib.classpath" />
+        <path refid="cis-common.classpath" />
+    </path>
+    <path id="cisw.classpath">
+        <pathelement location="${cisw.build.classes}" />
+        <path refid="cisw.lib.classpath" />
+        <path refid="cis-common.classpath" />
+    </path>
+    <path id="ciscd.classpath">
+        <pathelement location="${ciscd.build.classes}" />
+        <path refid="ciscd.lib.classpath" />
+    </path>
+
+    <!-- ====================================================== -->
+    <!-- Initialization                                         -->
+    <!-- ====================================================== -->
+    <target name="init">
+        <mkdir dir="${cis-common.build.classes}" />
+        <mkdir dir="${ciscd.build.classes}" />
+        <mkdir dir="${cissd.build.classes}" />
+        <mkdir dir="${cisw.build.classes}" />
+        <mkdir dir="${cis.dist.dir}" />
+    </target>
+
+    <!-- ====================================================== -->
+    <!-- Compile the Java files                                 -->
+    <!-- ====================================================== -->
+    <target name="compile_common" depends="init" description="Compile cis-common Java code">
+        <javac srcdir="${cis-common.src.dir}" destdir="${cis-common.build.classes}" debug="${javac.debug}" optimize="${javac.optimize}" target="${javac.version}" source="${javac.version}" deprecation="${javac.deprecation}">
+            <compilerarg line="${javac.args}" />
+            <classpath refid="cis-common.classpath" />
+        </javac>
+    </target>
+
+    <target name="compile_ciscd" depends="compile_common" description="Compile ciscd Java code">
+        <javac srcdir="${ciscd.src.dir}" destdir="${ciscd.build.classes}" debug="${javac.debug}" optimize="${javac.optimize}" target="${javac.version}" source="${javac.version}" deprecation="${javac.deprecation}">
+            <compilerarg line="${javac.args}" />
+            <classpath refid="ciscd.classpath" />
+        </javac>
+    </target>
+
+    <target name="compile_cissd" depends="compile_common" description="Compile cissd Java code">
+        <javac srcdir="${cissd.src.dir}" destdir="${cissd.build.classes}" debug="${javac.debug}" optimize="${javac.optimize}" target="${javac.version}" source="${javac.version}" deprecation="${javac.deprecation}">
+            <compilerarg line="${javac.args}" />
+            <classpath refid="cissd.classpath" />
+        </javac>
+    </target>
+
+    <target name="compile_cisw" depends="compile_common" description="Compile cisw Java code">
+        <javac srcdir="${cisw.src.dir}" destdir="${cisw.build.classes}" debug="${javac.debug}" optimize="${javac.optimize}" target="${javac.version}" source="${javac.version}" deprecation="${javac.deprecation}">
+            <compilerarg line="${javac.args}" />
+            <classpath refid="cisw.classpath" />
+        </javac>
+    </target>
+
+    <target name="compile" depends="compile_common, compile_ciscd, compile_cissd, compile_cisw" description="Compile all Java code" />
+
+    <!-- ====================================================== -->
+    <!-- Packaging                                              -->
+    <!-- ====================================================== -->
+    <target name="package_ciscd" depends="compile_ciscd" description="Generate ciscd JAR file">
+        <copy todir="${ciscd.dist.lib.dir}">
+            <fileset dir="${ciscd.lib.dir}" />
+        </copy>
+        <copy todir="${ciscd.dist.collector.dir}">
+            <fileset dir="${ciscd.collector.dir}" />
+        </copy>
+        <copy todir="${ciscd.dist.cmanager.dir}">
+            <fileset dir="${ciscd.cmanager.dir}" />
+        </copy>
+        <copy todir="${ciscd.dist.bin.dir}">
+            <fileset dir="${ciscd.bin.dir}" />
+        </copy>
+        <chmod dir="${ciscd.dist.bin.dir}" perm="ugo+rx" includes="**/*.sh"/>
+        <chmod dir="${ciscd.dist.collector.dir}" perm="ugo+rx" includes="**/*.py"/>
+        <!--<exec executable="chmod" dir="${ciscd.dist.collector.dir}" failonerror="true"> 
+            <arg line="-R 0755 ." /> 
+        </exec>-->
+
+        <jar destfile="${ciscd.dist.lib.dir}/${jmxprobe.final.name}.jar"
+               basedir="${ciscd.build.classes}"
+               includes="**/jmx/**" >
+            <manifest>
+                <attribute name="Main-Class" value="com/skplanet/monitoring/jmxprobe" />
+                <section name="com/skplanet/monitoring">
+                    <attribute name="Implementation-Title" value="jmxprobe" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+        
+        <jar destfile="${ciscd.dist.lib.dir}/${mrprobe.final.name}.jar"
+               basedir="${ciscd.build.classes}"
+               includes="**/mapreduce/**">
+            <manifest>
+                <attribute name="Main-Class" value="com/skplanet/monitoring/mapreduce" />
+                <section name="com/skplanet/monitoring">
+                    <attribute name="Implementation-Title" value="mrprobe" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="package_cissd" depends="compile_cissd" description="Generate cissd JAR file">
+        <copy todir="${cissd.dist.lib.dir}">
+            <fileset dir="${cissd.lib.dir}" />
+        </copy>
+        <copy todir="${cissd.dist.conf.dir}">
+            <fileset dir="${cissd.conf.dir}" />
+        </copy>
+        <copy todir="${cissd.dist.bin.dir}">
+            <fileset dir="${cissd.bin.dir}" />
+        </copy>
+        <chmod dir="${cissd.dist.bin.dir}" perm="ugo+rx" includes="**/*.sh"/>
+
+        <jar destfile="${cissd.dist.dir}/${cis-common.final.name}.jar" basedir="${cis-common.build.classes}">
+            <manifest>
+                <section name="com/skplanet/ciscommon">
+                    <attribute name="Implementation-Title" value="ciscommon" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+        <jar destfile="${cissd.dist.dir}/${cissd.final.name}.jar" basedir="${cissd.build.classes}">
+            <manifest>
+                <attribute name="Main-Class" value="com/skplanet/cissd/CISSDMain" />
+                <section name="com/skplanet/cissd">
+                    <attribute name="Implementation-Title" value="cissd" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="package_cisw" depends="compile_cisw" description="Generate cisw JAR file">
+        <copy todir="${cisw.dist.lib.dir}">
+            <fileset dir="${cisw.lib.dir}" />
+        </copy>
+        <copy todir="${cisw.dist.conf.dir}">
+            <fileset dir="${cisw.conf.dir}" />
+        </copy>
+        <copy todir="${cisw.dist.bin.dir}">
+            <fileset dir="${cisw.bin.dir}" />
+        </copy>
+        <chmod dir="${cisw.dist.bin.dir}" perm="ugo+rx" includes="**/*.sh"/>
+        <chmod dir="${cisw.dist.conf.dir}" perm="ugo+rx" includes="**/*.sh"/>
+        <mkdir dir="${cisw.dist.diskcache.dir}" />
+        <copy todir="${cisw.dist.webroot.dir}">
+            <fileset dir="${cisw.webroot.dir}" />
+        </copy>
+
+        <jar destfile="${cisw.dist.dir}/${cis-common.final.name}.jar" basedir="${cis-common.build.classes}">
+            <manifest>
+                <section name="com/skplanet/ciscommon">
+                    <attribute name="Implementation-Title" value="ciscommon" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+        <jar destfile="${cisw.dist.dir}/${cisw.final.name}.jar" basedir="${cisw.build.classes}">
+            <manifest>
+                <attribute name="Main-Class" value="com/skplanet/cisw/CISWMain" />
+                <section name="com/skplanet/cisw">
+                    <attribute name="Implementation-Title" value="cisw" />
+                    <attribute name="Implementation-Version" value="${version}" />
+                    <attribute name="Implementation-Vendor" value="SK Planet" />
+                </section>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="package" depends="package_ciscd, package_cissd, package_cisw" description="Generate all JAR files" />
+
+    <!-- ====================================================== -->
+    <!-- Clean                                                  -->
+    <!-- ====================================================== -->
+    <target name="clean" description="Delete generated directories">
+        <delete dir="${cis-common.build.dir}" />
+        <delete dir="${ciscd.build.dir}" />
+        <delete dir="${cissd.build.dir}" />
+        <delete dir="${cisw.build.dir}" />
+        <delete dir="${cis.dist.dir}" />
+    </target>
+</project>

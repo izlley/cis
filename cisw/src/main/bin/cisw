@@ -1,0 +1,69 @@
+#!/bin/bash
+
+set -e
+me=${0##*/}
+mydir=`dirname "$0"`
+VERSION="0.0.1"
+
+CISW_HOME=$CIS_HOME/cisw
+CONF_PATH=$CISW_HOME/conf
+LIB_PATH=$CISW_HOME/lib
+
+#JARFILE=${JAR-"${CISW_HOME}/cisw-${VERSION}.jar"}
+for jar in "$CISW_HOME"/*.jar; do
+    CLASSPATH="$CLASSPATH:$jar"
+done
+
+for jar in "$LIB_PATH"/*.jar; do
+    CLASSPATH="$CLASSPATH:$jar"
+done
+
+CLASSPATH="$CLASSPATH:$CISW_HOME:$CONF_PATH"
+
+# Remove any leading colon.
+CLASSPATH="${CLASSPATH#:}"
+
+#echo $CLASSPATH
+
+usage() {
+  echo >&2 "usage: $me <command> [args]"
+  echo 'Valid commands: fsck, import, mkmetric, query, cis, scan, uid'
+  exit 1
+}
+
+case $1 in
+  (fsck)
+    MAINCLASS=Fsck
+    ;;
+  (import)
+    MAINCLASS=TextImporter
+    ;;
+  (mkmetric)
+    shift
+    set uid assign metrics "$@"
+    MAINCLASS=UidManager
+    ;;
+  (query)
+    MAINCLASS=CliQuery
+    ;;
+  (cis)
+    MAINCLASS=CISWMain
+    ;;
+  (scan)
+    MAINCLASS=DumpSeries
+    ;;
+  (uid)
+    MAINCLASS=UidManager
+    ;;
+  (*)
+    echo >&2 "$me: error: unknown command '$1'"
+    usage
+    ;;
+esac
+shift
+
+JAVA=${JAVA-'java'}
+JVMARGS=${JVMARGS-'-enableassertions -enablesystemassertions'}
+
+exec $JAVA $JVMARGS -classpath "$CLASSPATH" com.skplanet.cisw.main.$MAINCLASS "$@"
+

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js no-ie"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title> - Cloudera Manager (Free Edition)</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="/static/cms/css/bootstrap.css?v=4.0.3">
+
+
+    <link rel="stylesheet" href="/static/cms/css/cms.css?v=4.0.3">
+
+
+    <script type="text/javascript" src="/static/ext/modernizr-1.6.min.js"></script>
+
+    <link rel="stylesheet" href="/static/ext/jquery/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" media="all" />
+
+    <script type="text/javascript" src="/static/ext/jquery/js/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript" src="/static/ext/require.js"></script>
+    <script type="text/javascript" src="/static/ext/Class.js"></script>
+    <script type="text/javascript" src="/static/ext/jquery/plugins/moment.min.js"></script>
+
+    <script type="text/javascript" src="/static/ext/jquery/plugins/bootstrap-all-2.0.js"></script>
+
+    <script type="text/javascript">
+    require.config({
+        
+        baseUrl: "/static/release",
+        
+        urlArgs: "v=" + "44aefecca40ba21fa752ce5d61d15e5d59746dec",
+        // Load MegaBase before anything else.
+        priority: ["cloudera/MegaBase"]
+    });
+    require([
+        "cloudera/MegaBase"
+    ], function(MegaBase) {
+        jQuery(function() {
+            var options = {
+                serverNow: new Date(1348811449551),
+                timezoneOffset: 32400000,
+                timezoneDisplayName: "KST",
+                locale: "ko_KR"
+            };
+            var megaBase = new MegaBase(options);
+        });
+    });
+    </script>
+</head>
+<body class="Fill">
+
+    
+
+
+
+<table class="AppHeader CustomGradientblack">
+    <tbody>
+        <tr>
+        
+            <td><a class="appName" href="/cmf/"><span class="logo label_productName_express"></span><span class="hidden productName">Manager (Free Edition)</span></a>
+<ul class="AppTabSet nav">
+    
+    
+    <li class="dropdown selected" id="servicesLinks">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Services
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu"></ul>
+    </li>
+    
+    
+    
+    <li >
+        <a href="/cmf/hardware/hosts" >Hosts</a>
+    </li>
+    
+    
+    
+</ul>
+<script type="text/javascript">
+require([
+    "cloudera/GlobalDropdownMenus"
+], function(GlobalDropdownMenus) {
+    jQuery(function($){
+        var menu = new GlobalDropdownMenus();
+    });
+});
+</script>
+
+</td>
+            
+                <td class="alignRight">
+                    <form action="/cmf/search" class="BasicSearch">
+	<label class="hidden" title="Search by Service, Role, or Host Name" for="BasicSearch">Search</label>
+    <span class="inputAndGo"><input id="BasicSearch" title="Search by Service, Role, or Host Name" type="text" name="q"/><span class="go" title="Search"></span></span>
+</form>
+<script type="text/javascript">
+require([
+    "cloudera/BasicSearch"
+], function(BasicSearch) {
+    jQuery(function($){
+        var search = new BasicSearch();
+    });
+});
+</script>
+
+                </td>
+            
+            <td>
+                <ul class="AppLinks AppTabSet nav pull-right">
+                    <li><a id="topLevelActiveCommandsInfo" class="AutoRefreshableCounter AjaxLink" data-update-href="/cmf/commands/topLevelRunningCommandsCount"
+    href="/cmf/commands/topLevelRunningCommandsPopup"></a></li>
+
+                    
+    <li><a href="https://groups.google.com/a/cloudera.org/group/scm-users/topics" target="_blank">Support Portal</a></li>
+
+
+
+                    <li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
+
+<ul class='dropdown-menu alignLeft'>
+    <li><a id="helpAppLink" href="/cmf/help/scm-help-guide" target="_blank">Help<i class="externalLink"></i></a></li>
+
+    <li><a id="helpInstallLink" href="/cmf/help/scm-install-guide" target="_blank">Installation Guide<i class="externalLink"></i></a></li>
+
+    <li><a id="helpApiLink" href="/static/apidocs/" target="_blank">API Documentation<i class="externalLink"></i></a></li>
+
+    <li><a class="AjaxLink" href="/cmf/help/about">About</a></li>
+
+    
+
+</ul>
+</li>
+
+                    <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="icon-user icon-white"></span> admin
+        <b class="caret"></b>
+    </a>
+    <ul class='dropdown-menu alignLeft'>
+        
+          <li><a href="/cmf/password">Change Password</a></li>
+
+        
+        <li><a href="/j_spring_security_logout">Logout</a></li>
+
+    </ul>
+</li>
+
+                    
+<li><a id="settingsTab" href="/cmf/settings"><span class="IconGear32x32" style="vertical-align: text-bottom" title="Administration"></span></a></li>
+
+
+                    
+
+                </ul>
+                <script type="text/javascript" src="/cmf/resources/ko_KR/ui?v=4.0.3"></script>
+
+
+
+                <div
+    
+    class="modal hide" style="display:none"
+    
+    id="errorDialog">
+    <div class="modal-header">
+        <a class="close" >x</a>
+        <h3>Error
+</h3>
+    </div>
+    <div class="modal-body">
+        <div id="errorDialogContent"></div>
+
+<script type="text/javascript">
+require([
+    "cloudera/layout/Toggler"
+], function (Toggler) {
+    jQuery(function($) {
+        var showError = function(content) {
+            $("#errorDialogContent").html(content);
+            $("#errorDialog").modal("show");
+            $("#errorDialogContent").find(".Toggler").Toggler('click');
+        };
+        $.subscribe("showError", showError);
+
+        var hideErrorDialog = function(evt) {
+            $("#errorDialog").modal("hide");
+        };
+
+        $("#errorDialog").find(".close").click(hideErrorDialog);
+        $("#errorDialogCloseBtn").click(hideErrorDialog);
+    });
+});
+</script>
+
+    </div>
+    <div class="modal-footer">
+        <a id="errorDialogCloseBtn" class="btn btn-primary">Close</a>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+require([
+    "cloudera/form/DisableAfterClickOnce",
+    "cloudera/common/ModalDialogBase"
+], function(DisableAfterClickOnce, ModalDialogBase) {
+    jQuery(function($) {
+        var $modal = $("#errorDialog");
+        var options = {
+            defaultVisible: false,
+            destroyOnClose: false
+        };
+        $modal.ModalDialogBase(options);
+        
+        // first try focus any visible cancel or close buttons.
+        $modal.find(".modal-footer .dismissButton:visible").focus();
+        // then try to focus on visible any primary buttons.
+        $modal.find(".modal-footer .btn-primary:visible").focus();
+        
+		$("#errorDialog").find("[data-disable-after-click-once=true]").DisableAfterClickOnce();
+    });
+});
+</script>
+
+
+
+
+            </td>
+        
+        </tr>
+    </tbody>
+</table><!-- AppHeader -->
+
+
+<script type="text/javascript">
+require(["cloudera/ServiceManagement"], function (ServiceManagement) {});
+</script>
+
+
+<div id="Main">
+
+<script type="text/javascript">
+function createAnyChartStock() {
+    if (!window.requiresClouderaLicenseShown) {
+        alert("This feature requires a Cloudera Manager License.");
+        window.requiresClouderaLicenseShown = true;
+    }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<ul class="breadcrumb">
+    <li>
+<a title="Return to Services" href="/cmf/services/status">Services</a><span class="divider">&raquo;</span>
+</li>
+
+    
+
+    
+</ul>
+
+
+<table class="width1of1 PageTitle">
+    <tbody>
+    <tr class="mainbar">
+        <td class="widthMin">
+            <h1>
+    <a href="/cmf/services/12/status"><span class="hbaseServiceIcon"></span>hbase1</a>
+    
+
+
+
+</h1>
+        </td>
+        <td>
+            <ul class="nav nav-pills">
+
+    
+<li class="active">
+    <a class="" href="/cmf/services/12/status">
+<i class="icon-home icon-white"></i>
+&nbsp;Status</a>
+
+</li>
+
+
+
+    
+<li >
+    <a class="" href="/cmf/services/12/instances">
+<i class="icon-list"></i>
+&nbsp;Instances</a>
+
+</li>
+
+
+
+    
+<li >
+    <a class="" href="/cmf/services/12/commands">
+<i class="icon-play-circle"></i>
+&nbsp;Commands</a>
+
+</li>
+
+
+
+    
+<li >
+    <a class="" href="/cmf/services/12/config">
+<i class="icon-edit"></i>
+&nbsp;Configuration</a>
+
+</li>
+
+
+
+    
+<li >
+    <a class="" href="/cmf/services/12/history">
+<i class="icon-eye-open"></i>
+&nbsp;Audits</a>
+
+</li>
+
+
+
+</ul>
+
+
+        </td>
+        <td class="statusbar"></td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+require([
+    "cloudera/cmf/page/ServiceStatus"
+], function(ServiceStatus) {
+
+    jQuery(function($) {
+        var options = {
+            ajaxUrl: "/cmf/services/12/healthStatusBar"
+        };
+        var serviceStatus = new ServiceStatus(options);
+    });
+});
+</script>
+
+<div id="MySplitter">
+    <div class="ui-layout-center pane">
+        
+<script type="text/javascript">
+require(["cloudera/ServiceMonitor"], function (ServiceMonitor) {});
+</script>
+
+
+
+
+
+<table id="serviceContent" class="width1of1">
+    <tbody>
+
+    <tr>
+    <td class="width1of1">
+        <div class="Region" id="statusHealthRegion">
+<div class="RegionTitle">
+    <h2>Status and Health Summary<span class="selectedTimeEndTimeLabel"></span></h2>
+</div>
+<div class="RegionContent" id="statusHealthTableContainer">
+    <table class="DataTable">
+    
+    <thead>
+        <tr>
+        
+            <th><div></div></th>
+        
+            <th><div>Status</div></th>
+        
+            <th><div>Health</div></th>
+        
+        </tr>
+    </thead>
+    
+    <tbody>
+        
+        <tr>
+            
+<td><div>&nbsp;</div></td>
+
+<td><div>&nbsp;</div></td>
+
+<td><div>&nbsp;</div></td>
+
+
+        </tr>
+        
+        <tr>
+            
+<td><div>&nbsp;</div></td>
+
+<td><div>&nbsp;</div></td>
+
+<td><div>&nbsp;</div></td>
+
+
+        </tr>
+        
+    </tbody>
+</table>
+
+
+</div><!-- RegionContent -->
+</div><!-- Region -->
+
+<script type="text/javascript">
+require([
+    "cloudera/chart/TimeControlledContent"
+], function(TimeControlledContent) {
+    jQuery(function($){
+        var urlParams = {
+            
+            timestamp: null
+        };
+
+        var options = {
+            url: "serviceStatusHealthTable",
+            urlParams: urlParams,
+            isCurrentMode: true,
+            containerSelector: "#statusHealthTableContainer",
+            updateOnPageLoad: true
+        };
+        var module = new TimeControlledContent(options);
+    });
+});
+</script>
+
+    </td>
+</tr>
+
+
+    </tbody>
+</table>
+
+
+    </div>
+
+</div><!-- MySplitter -->
+
+
+
+
+
+<script type="text/javascript">
+
+// create global var for the layout-instance object
+var myLayout;
+require([
+    "cloudera/cmf/page/LogsEventsLayout",
+    "cloudera/layout/AutoOverFlow2"
+], function(LogsEventsLayout) {
+
+    jQuery(function($) {
+        $("#MySplitter").AutoOverFlow2();
+        
+        var options = {
+            defaultSettings: {
+                
+            },
+            layoutName: "myLayout",
+            layoutSelector: "#MySplitter"
+        };
+        var layout = LogsEventsLayout(options);
+    });
+});
+</script>
+
+</div>
+
+
+
+
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+<script type="text/javascript" src="/static/ext/jquery/plugins/jquery-plugins-all-4.0.min.js"></script>
+
+
+    <script type="text/javascript" src="/static/ext/jquery/plugins/jquery.tmpl-1.0.0pre.js"></script>
+
+    
+<script type="text/javascript" src="/static/ext/knockout-2.0.0.js"></script>
+
+
+    
+
+
+    <script type="text/javascript" src="/static/ext/jquery/plugins/sammy-0.7.1.min.js"></script>
+
+    <script type="text/javascript">
+    require([
+        "cloudera/common/I18nValidator"
+    ], function(I18nValidator) {});
+    </script>
+</body>
+</html>

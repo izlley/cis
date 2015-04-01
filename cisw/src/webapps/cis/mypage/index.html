@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js no-ie"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>CISpade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Jordan Lee">
+
+    <!-- Le styles -->
+    <link href="/s/cis/static/css/ui.dynatree.css" rel="stylesheet">
+    <link href="/s/cis/static/css/jquery.dataTables.css" rel="stylesheet">
+    <link href="/s/cis/static/css/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+    <link href="/s/cis/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/s/cis/static/css/cis.css" rel="stylesheet">
+    <!--<link href="/s/cis/static/css/bootstrap-responsive.css" rel="stylesheet">-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/s/cis/static/img/favicon.ico">
+  </head>
+
+  <body class="Fill">
+
+    <table class="AppHeader CustomGradientblack">
+    <tbody>
+      <tr>
+        <td><a class="appName" href="/cis/mypage">
+          <span ID="productName">CIS</span>
+          <span ID="productNamedetail">(monitering tool)</span></a>
+<ul class="AppTabSet nav">
+
+  <li >
+    <a href="/cis/clusters" >Clusters</a>
+  </li>
+
+  <li class="dropdown" id="servicesLinks">
+    <a id="ddservices" class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Services
+      <b class="caret"></b>
+    </a>
+<!--href="../services/hdfs/index.html" -->
+    <ul class="dropdown-menu" role="menu" aria-labelledby="ddservices">
+      <li><a class="disabled" tabindex="-1" href="#">HDFS</a></li>
+      <li><a tabindex="-1" href="#">MapReduce</a></li>
+      <li><a tabindex="-1" href="#">HBase</a></li>
+      <li><a tabindex="-1" href="#">MongoDB</a></li>
+      <li><a tabindex="-1" href="#">MySQL</a></li>
+      <li><a tabindex="-1" href="#">Oracle</a></li>
+    </ul>
+  </li>
+
+  <li class="selected">
+    <a href="/cis/mypage" >MyPage</a>
+  </li>
+
+  <li >
+    <a href="/cis/alerts" >Alerts</a>
+  </li>
+
+  <li >
+    <a href="/cis/logs" >Logs</a>
+  </li>
+
+  <li >
+    <a href="/cis/reports" >Reports</a>
+  </li>
+
+</ul>
+
+<script type="text/javascript">
+/*require([
+    "cloudera/GlobalDropdownMenus"
+], function(GlobalDropdownMenus) {
+    jQuery(function($){
+        var menu = new GlobalDropdownMenus();
+    });
+});*/
+</script>
+        </td>
+        <td>
+<ul class="AppLinks AppTabSet nav pull-right">
+  <li >
+    <a id="login" href="#loginModal" data-toggle="modal">Log in</a>
+  </li>
+
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
+
+    <ul class='dropdown-menu alignLeft'>
+      <li><a id="helpAppLink" href="/cis/help" target="_blank">Help<i class="externalLink"></i></a></li>
+      <li><a id="helpInstallLink" href="/cis/help" target="_blank">Installation Guide<i class="externalLink"></i></a></li>
+      <li><a id="helpApiLink" href="/static/apidocs/" target="_blank">API Documentation<i class="externalLink"></i></a></li>
+      <li><a class="AjaxLink" href="/cmf/help/about">About</a></li>
+    </ul>
+  </li>
+  <li>
+    <a id="settingsTab" href="/cis/setting">
+      <span class="icon-cog icon-white"></span>
+    </a>
+  </li>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+
+    <!--<div class="container-fluid">-->
+    <div id="Main">
+
+      <ul class="breadcrumb">
+        <li>
+          <a title="Return to MyPage" href="/cis/mypage">MyPage</a><span class="divider">&raquo;</span>
+        </li>
+      </ul>
+
+      <table class="width1of1 PageTitle mypagemenu">
+        <tbody>
+          <tr class="mainbar">
+            <td class="split-mainbar">
+              <ul class="nav nav-pills">
+                <li class="dropdown">
+                  <a id="Add" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-plus"></i>
+                  &nbsp;Add</a>
+                  <ul class="myddmenu dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a id="addpage" tabindex="-1" href="#">Add page</a></li>
+                    <li><a id="adddir" tabindex="-1" href="#">Add directory</a></li>
+                  </ul>
+                </li>
+                <li >
+                  <a id="Delpage" href="#">
+                    <i class="icon-minus"></i>
+                  &nbsp;Delete</a>
+                </li>
+              </ul>
+            </td>
+            <td class="width1of2">
+              <ul class="nav nav-pills">
+                <li>
+                  <a id="newchart" href="#addModal" data-toggle="modal">
+                    <i class="icon-edit"></i>
+                  &nbsp;New chart</a>
+                </li>
+                <li >
+                  <a id="addcol" href="#">
+                    <i class="icon-th"></i>
+                  &nbsp;Add column</a>
+                </li>
+                <li >
+                  <a id="deletecol" href="#">
+                    <i class="icon-th-large"></i>
+                  &nbsp;Delete column</a>
+                </li> 
+                <li >
+                  <a class="" href="#">
+                    <i class="icon-hdd"></i>
+                  &nbsp;Save page</a>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <form class="BasicSearch" action="/cis/mypage/search">
+                <label class="over" title="Search by Tag name" for="BasicSearch">Tag Search</label>
+                <span class="inputAndGo">
+                  <input id="BasicSearch" type="text" name="q" title="Search by Tag name">
+                  <span class="go icon-search" title="Search"></span>
+                </span>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+<!-- Zoom Modal -->
+<div class="modal hide" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close">×</button>
+    <h4 id="zoomModalLabel">Zoom-in</h4>
+  </div>
+  <div id="zoomingchart" style="width:500px;height:300px"></div>
+</div>
+
+<!-- Add-chart modal -->
+<div class="bigmodal fade hide" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-header">
+    <button type="button" class="close exit" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 id="addModalLabel">New chart</h4>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="inputTitle">
+          <i style="color:red">*&nbsp;</i>Title
+        </label>
+        <div class="controls">
+          <input class="input-xlarge" type="text" id="inputTitle" placeholder="Title">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputFrequency">
+          <i style="color:red">*&nbsp;</i>Frequency
+        </label>
+        <div class="controls">
+          <input class="input-mini" type="text" id="inputFrequency" placeholder="number">
+          <select id="selFrequency">
+            <option>seconds</option>
+            <option>minutes</option>
+            <option>hours</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputTags">
+          Tags
+        </label>
+        <div class="controls">
+          <input type="text" id="inputTags" placeholder="Tags">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputComp">
+          Comparision
+        </label>
+        <div class="controls">
+          <select id="selMetricTag" disabled>
+            <option>metric1</option>
+            <option>metric2</option>
+            <option>metric3</option>
+          </select>
+          <select class="span1" id="selComop" disabled>
+            <option>></option>
+            <option><</option>
+            <option>=</option>
+            <option>!=</option>
+            <option>>=</option>
+            <option><=</option>
+          </select>
+          <input type="text" id="inputCompVal" placeholder="Number" disabled>
+        </div>
+      </div>
+      <div class="control-group borderBottom">
+        <label class="control-label" for="inputDescription">Description</label>
+        <div class="controls">
+          <textarea class="span4" id="inputDescription" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="inputDate">
+          <i style="color:red">*&nbsp;</i>Date
+        </label>
+        <div class="controls">
+          <button class="btn btn-small" id="last15min" type="button">Last 15m</button>
+          <button class="btn btn-small" id="last30min" type="button">Last 30m</button>
+          <button class="btn btn-small" id="last1hour" type="button">Last 1h</button>
+          <button class="btn btn-small" id="last6hour" type="button">Last 6h</button>
+          <button class="btn btn-small" id="last12hour" type="button">Last 12h</button>
+          <button class="btn btn-small" id="last1day" type="button">Last 1day</button>
+          <p style="margin-top:10px;margin-bottom:0px;">or&nbsp;&nbsp;From
+          <input class="input-medium" type="text" id="inputSDate" placeholder="Start date">
+          &nbsp;&nbsp;To 
+          <input class="input-medium" type="text" id="inputEDate" placeholder="End date">
+          </p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputCharttype">
+          Chart type
+        </label>
+        <div class="controls">
+          <select id="selCarttype">
+            <option>Line</option>
+            <option>Stack</option>
+            <option>Pie</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <table id="metrictable">
+          <tr>
+            <td>
+              <div>
+                <label><i style="color:red">*&nbsp;</i>Metrics & tags</label>
+              </div>
+              <div id="metrictab">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#metric1" data-toggle="tab">1</a>
+                  </li>
+                  <li>
+                    <a id="addmetrictab">
+                      <i class="icon-plus"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a id="delmetrictab">
+                      <i class="icon-minus"></i>
+                    </a>
+                  </li>
+                </ul>
+
+                <div id="metricContent" class="tab-content">
+                  <div id="metric1" class="tab-pane fade in active">
+                    <div class="control-group">
+                      <label class="control-label" for="inputMetric">
+                        <i style="color:red">*&nbsp;</i>Metric
+                      </label>
+                      <div class="controls">
+                        <input class="input-medium" type="text" id="inputMetric" placeholder="metric name">
+                        <!--<a id="metricshelper" data-target="#metricsModal" data-toggle="modal"><i class="icon-question-sign"></i></a>-->
+                        <a id="metricshelper" rel="popover" data-html="true" data-original-title='<button type="button" class="close" id="metricsClose">×</button><b>Metrics list</b>'><i class="icon-question-sign"></i></a>
+                      </div>
+                    </div>
+
+                    <div id="metrictags" class="control-group">
+                      <label class="control-label">
+                        tag1
+                      </label>
+                      <div class="controls">
+                        <input class="tagkey input-small" type="text" placeholder="tagKey">
+                        =
+                        <input class="tagval input-small" type="text" placeholder="tagValue">
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputAggregator">
+                        Aggregator
+                      </label>
+                      <div class="controls">
+                        <select id="selAggregator">
+                          <option>Sum</option>
+                          <option>Avg</option>
+                          <option>Min</option>
+                          <option>Max</option>
+                          <option>Dev</option>
+                        </select>
+                        <label class="checkbox">
+                          <input id="inputRate" type="checkbox"> Rate
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputDS">
+                        Downsampling
+                      </label>
+                      <div class="controls">
+                        <select id="selDSagg">
+                          <option>Sum</option>
+                          <option>Avg</option>
+                          <option>Min</option>
+                          <option>Max</option>
+                          <option>Dev</option>
+                        </select>
+                        of
+                        <input class="input-mini" type="text" id="inputDStime" placeholder="number">
+                        <select id="selDStime">
+                          <option>seconds</option>
+                          <option>minutes</option>
+                          <option>hours</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputLegend">
+                        Legend
+                      </label>
+                      <div class="controls">
+                        <input class="input-medium" type="text" id="inputLegend" placeholder="Legend format">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="genquery">
+              <a id="querygen" href="#">
+                <p>Generate</p>
+                <i class="icon-chevron-right"></i>
+              </a>
+            </td>
+            <td>
+              <div>
+                <label><i style="color:red">*&nbsp;</i>Query</label>
+              </div>
+              <div>
+                <textarea id="inputQuery" rows="8"></textarea>
+              </div>
+            </td>
+          </tr>
+        </table>
+        
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" style="text-align:center;">
+    <button id="doplot" class="btn btn-primary">Plot it!</button>
+  </div>
+</div>
+<!-------------------->
+
+      <div class="container-fluid margintop">
+      <div class="row-fluid">
+        <div class="span2">
+          <div id="dtree"></div>
+          <div>Selected keys: <span id="echoSelection2">-</span></div>
+        </div><!--/span-->
+
+
+        <div class="span10">
+          <ul id="draglist">
+          </ul>
+
+          <div id="addbox" class="span4">
+            
+            <p>
+              <a class="btn btn-primary" href="#addModal" data-toggle="modal">
+                <i class="icon-edit icon-white"></i>
+                New chart
+              </a>
+            </p>
+            
+          </div>
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p style="text-align:center;">&copy; SKPlanet 2012</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+    </div><!--#Main-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="../static/js/lib/jquery-1.8.2.js"></script>-->
+    <script src="/s/cis/static/js/lib/jquery-1.8.2.js"></script>
+    <script src="/s/cis/static/js/lib/modernizr-2.6.2.min.js"></script>
+    <script src="/s/cis/static/js/lib/jquery-ui-1.9.0.custom.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.cookie.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.dynatree.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.dragsort-0.5.1.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.dataTables.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.flot.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.flot.selection.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.flot.resize.js"></script>
+    <script src="/s/cis/static/js/lib/jquery.flot.time.js"></script>
+    <script src="/s/cis/static/js/lib/bootstrap.js"></script>
+    <!--<script src="/s/cis/static/js/lib/jquery.json-2.3.js"></script>-->
+    <script src="/s/cis/static/js/cis.js"></script>
+  </body>
+</html>
